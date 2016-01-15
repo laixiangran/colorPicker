@@ -1,0 +1,23 @@
+{
+  "name": "colorpicker",
+  "version": "1.0.0",
+  "description": "颜色选择器",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "colorPicker"
+  ],
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": {
+    "name": "laixiangran",
+    "email": "laixiangran@163.com",
+    "url": "http://www.cnblogs.com/laixiangran/"
+  },
+  "license": "MIT"
+}
