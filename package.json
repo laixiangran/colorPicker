@@ -19,5 +19,8 @@
     "email": "laixiangran@163.com",
     "url": "http://www.cnblogs.com/laixiangran/"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "bower": "^1.7.2"
+  }
 }
