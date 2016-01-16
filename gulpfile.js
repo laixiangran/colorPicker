@@ -11,8 +11,7 @@ var gulp = require("gulp"),
     concat = require("gulp-concat"), // 合并文件
     notify = require("gulp-notify"), // 任务消息提醒
     livereload = require("gulp-livereload"), // 自动刷新页面
-    clean = require("gulp-clean"), // 清理文件
-    htmlmin = require("gulp-htmlmin"); // 压缩html
+    clean = require("gulp-clean"); // 清理文件
 
 gulp.task("styles", function() {
     return gulp.src("src/css/*.css")
