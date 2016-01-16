@@ -9,10 +9,10 @@
   "keywords": [
     "colorPicker"
   ],
-  "homepage": "",
+  "homepage": "https://github.com/laixiangran/colorPicker",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/laixiangran/colorPicker.git"
   },
   "author": {
     "name": "laixiangran",
