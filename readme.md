@@ -1,4 +1,4 @@
-#颜色选择器 v1.0.0
+#颜色选择器 colorPicker v1.0.0
 ##使用
 ###引入
     <link rel="stylesheet" href="../dist/css/colorPicker.css">
