@@ -10,7 +10,6 @@
     "colorPicker"
   ],
   "homepage": "https://github.com/laixiangran/colorPicker",
-  "moduleType": [],
   "private": true,
   "dependencies": {
     "bootstrap": "~3.3.6"
