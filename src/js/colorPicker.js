@@ -2,16 +2,16 @@
  * Created by laixiangran on 2016/1/15.
  * colorPicker.js 颜色选择器
  */
-(function(){
+(function (window) {
 
-    var $CP = ColorPicker =  function(options) {
+    var $CP = function (options) {
         this.initialize(options);
     };
 
     $CP.prototype = {
 
         // 重写对象
-        extend: function(destination, source) {
+        extend: function (destination, source) {
             for (var p in source) {
                 if (source.hasOwnProperty(p)) {
                     destination[p] = source[p];
@@ -21,50 +21,50 @@
         },
 
         // 初始化
-        initialize: function(options) {
+        initialize: function (options) {
             this.setOptions(options);
             this.drawPicker(options.textInput_id);
         },
 
         // 设置属性
-        setOptions: function(options) {
+        setOptions: function (options) {
 
             // 这里集中设置默认属性
             this.options = {
-                id: "colorpicker"+ new Date().getTime(),
+                id: "colorpicker" + new Date().getTime(),
                 textInput_id: null // 用于textInput的id, 必选项
             };
             this.extend(this.options, options || {}); // 用自定义属性重写默认属性
         },
 
         // getElementById的快捷方式
-        ID: function(id) {
+        ID: function (id) {
             return document.getElementById(id);
         },
 
         // getElementsByTagName的快捷方式
-        TN: function(tn) {
+        TN: function (tn) {
             return document.getElementsByTagName(tn);
         },
 
         // createElement的快捷方式
-        CE: function(s) {
+        CE: function (s) {
             return document.createElement(s)
         },
 
         // 获取css属性值
-        getCSS: function(element, cssAttr) {
+        getCSS: function (element, cssAttr) {
             return element.currentStyle ?
                 element.currentStyle[cssAttr] :
                 document.defaultView.getComputedStyle(element, null)[cssAttr];
         },
 
         // RGB转十六进制
-        rgbToHex: function(rgb) {
+        rgbToHex: function (rgb) {
             if (/^(rgb|RGB)/.test(rgb)) {
-                var aColor = rgb.replace(/(?:\(|\)|rgb|RGB)*/g,"").split(",");
+                var aColor = rgb.replace(/(?:\(|\)|rgb|RGB)*/g, "").split(",");
                 var strHex = "#";
-                for (var i=0; i<aColor.length; i++) {
+                for (var i = 0; i < aColor.length; i++) {
                     var hex = Number(aColor[i]).toString(16);
                     if (hex === "0") {
                         hex += hex;
@@ -76,26 +76,26 @@
         },
 
         // 隐藏元素
-        hide: function(el) {
+        hide: function (el) {
             el.style.display = "none";
         },
 
         // 显示元素
-        show: function(el) {
+        show: function (el) {
             el.style.display = "block";
         },
 
         //用于生成颜色选择器的具体内容
-        colorPickerHtml: function() {
+        colorPickerHtml: function () {
 
             // 只生成WEB安全色
-            var  _hex = ["FF", "CC", "99", "66", "33", "00"];
+            var _hex = ["FF", "CC", "99", "66", "33", "00"];
 
             //颜色块数组
             var builder = [];
 
             // 生成一个颜色格
-            var _drawCell = function(builder, red, green, blue) {
+            var _drawCell = function (builder, red, green, blue) {
                 builder.push('<td ');
                 builder.push('style="background-color: #' + red + green + blue + ';"');
                 builder.push('title="#' + red + green + blue + '"');
@@ -103,7 +103,7 @@
             };
 
             // 生成一行颜色格
-            var _drawRow = function(builder, red, blue) {
+            var _drawRow = function (builder, red, blue) {
                 builder.push('<tr>');
                 for (var i = 0; i < 6; ++i) {
                     _drawCell(builder, red, _hex[i], blue)
@@ -112,7 +112,7 @@
             };
 
             // 生成六个颜色区之一
-            var _drawTable = function(builder, blue) {
+            var _drawTable = function (builder, blue) {
                 builder.push('<table class="cell">');
                 for (var i = 0; i < 6; ++i) {
                     _drawRow(builder, _hex[i], blue)
@@ -139,19 +139,19 @@
         },
 
         // 添加事件方法
-        addEvent: function(el, type, fn) {
+        addEvent: function (el, type, fn) {
             if (el.attachEvent) {
                 el["e" + type + fn] = fn;
-                el.attachEvent("on" + type, function() {
+                el.attachEvent("on" + type, function () {
                     el["e" + type + fn]();
                 });
-            }else {
+            } else {
                 el.addEventListener(type, fn, false);
             }
         },
 
         //绘制选择器
-        drawPicker: function(id) {
+        drawPicker: function (id) {
             var $CP = this,
                 textInput = $CP.ID(id),
                 colorPicker = $CP.CE("div");
@@ -159,27 +159,27 @@
             colorPicker.innerHTML = $CP.colorPickerHtml();
             textInput.parentNode.insertBefore(colorPicker, null);
             $CP.hide(colorPicker);
-            $CP.addEvent(textInput, "focus", function() {
+            $CP.addEvent(textInput, "focus", function () {
                 textInput.style.position = "relative";
                 $CP.show(colorPicker);
                 var l = textInput.offsetLeft + "px",
-                    t = (textInput.clientHeight + textInput.offsetTop)+ "px";
+                    t = (textInput.clientHeight + textInput.offsetTop) + "px";
                 colorPicker.style.left = l;
                 colorPicker.style.top = t;
                 colorPicker.style.width = $CP.getCSS(textInput, "width");
             });
-            $CP.addEvent(colorPicker, "mouseover", function() {
+            $CP.addEvent(colorPicker, "mouseover", function () {
                 var e = arguments[0] || window.event,
                     td = e.srcElement ? e.srcElement : e.target,
                     nn = td.nodeName.toLowerCase(), // 这里ie会自动转化为大写，故作小写转化
                     colorView = $CP.ID("color_view"),
                     colorCode = $CP.ID("color_code");
                 if ("td" == nn) {
-                    colorView.style.backgroundColor = td.style.backgroundColor ;
+                    colorView.style.backgroundColor = td.style.backgroundColor;
                     colorCode.innerText = $CP.rgbToHex(td.style.backgroundColor);
                 }
             });
-            $CP.addEvent(colorPicker, "click", function() {
+            $CP.addEvent(colorPicker, "click", function () {
                 console.log("click");
                 var e = arguments[0] || window.event,
                     td = e.srcElement ? e.srcElement : e.target,
@@ -191,4 +191,35 @@
             });
         }
     };
-}());
+
+    /*
+     * 导出模块
+     */
+
+    var exported = false;
+
+    // jQuery
+    if (typeof window.jQuery === "function") {
+        window.$.fn.ColorPicker = $CP;
+        exported = true;
+    }
+
+    // CMD
+    if (typeof define === "function" && define.amd) {
+        define(function () {
+            return $CP;
+        });
+        exported = true;
+    }
+
+    // AMD
+    if (typeof module !== "undefined" && module.exports) {
+        module.exports = $CP;
+        exported = true;
+    }
+
+    // Global
+    if (!exported) {
+        window.ColorPicker = $CP;
+    }
+}(window));
